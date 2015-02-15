@@ -1,4 +1,5 @@
 # Brevity
+[![Build Status](https://travis-ci.org/kylewm/brevity.svg)](https://travis-ci.org/kylewm/brevity)
 
 *Brevity is the soul of tweet*
 
