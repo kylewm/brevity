@@ -4,4 +4,4 @@ python:
   - "2.7"
   - "3.3"
 # command to run tests
-script: "python -m unittest discover"
+script: "python -m unittest tests.brevity_test"
