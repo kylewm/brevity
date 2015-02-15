@@ -36,12 +36,11 @@ def tokenize(text, skip_bare_cc_tlds=False):
     roughly equivalent to the output of re.findall and re.split (with
     some post-processing)
 
-    Args:
-      text: string to linkify
-      skip_bare_cc_tlds: boolean, whether to skip links of the form
+    :param string text: text to tokenize
+    :param boolean skip_bare_cc_tlds: whether to skip links of the form
         [domain].[2-letter TLD] with no schema and no path
 
-    Returns: a list of brevity.Tokens
+    :return list: a list of brevity.Tokens
     """
     links = LINKIFY_RE.findall(text)
     splits = LINKIFY_RE.split(text)
@@ -91,6 +90,37 @@ def tokenize(text, skip_bare_cc_tlds=False):
 
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=140, http_link_length=22, https_link_length=23):
+    """Prepare note text for publishing as a tweet. Ellipsize and add a
+    permalink or citation.
+
+    If the full text plus optional '(permashortlink)' or
+    '(permashortcitation)' can fit into the target length (defaults to
+    140 characters), it will return the composed text.
+
+    Otherwise, the text will be shortened to the nearest full word,
+    with an ellipsis and permalink added at the end. A permalink
+    should always be provided; otherwise text will be shortened with
+    no way to find the original.
+
+    Note: that the permashortlink does not actually have to be a
+    "short" URL. It is totally reasonable to provide the same URL for
+    both the permalink and permashortlink.
+
+    :param string text: The full note text that may be ellipsized
+    :param string permalink: URL of the original note, will only be added if
+      the text is shortened (optional).
+    :param string permashortlink: Short URL of the original note, if provided
+      will be added in parentheses to the end of all notes. (optional)
+    :param string permashortcitation: Citation to the original note, e.g.
+      'ttk.me t4_f2', an alternative to permashortlink. If provided will be
+      added in parentheses to the end of all notes. (optional)
+    :param int target_length: The target overall length (default = 140)
+    :param int http_link_length: The t.co length for an http URL (default = 22)
+    :param int https_link_length: The t.co shortened length for an https URL
+      (default = 23)
+
+    :return string: the final composed text
+    """
     def truncate_to_nearest_word(text, length):
       # try stripping trailing whitespace first
       text = text.rstrip()
