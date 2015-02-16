@@ -32,15 +32,16 @@ class Token:
 
 
 def tokenize(text, skip_bare_cc_tlds=False):
-    """Split text into link and non-link text, returning two lists
-    roughly equivalent to the output of re.findall and re.split (with
-    some post-processing)
+    """Split text into link and non-link text, a list of brevity.Tokens,
+    tagged with 'text' or 'link' depending on how they should be
+    interpreted.
 
     :param string text: text to tokenize
     :param boolean skip_bare_cc_tlds: whether to skip links of the form
         [domain].[2-letter TLD] with no schema and no path
 
     :return list: a list of brevity.Tokens
+
     """
     links = LINKIFY_RE.findall(text)
     splits = LINKIFY_RE.split(text)
@@ -163,6 +164,8 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         if permalink:
             tokens.append(Token('text', u'… ', True))
             tokens.append(Token('link', permalink, True))
+        else:
+            tokens.append(Token('text', u'…', True))
 
         # drop or shorten tokens, starting from the end
         for ii in xrange(len(tokens) - 1, -1, -1):
