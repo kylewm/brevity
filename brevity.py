@@ -148,7 +148,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     if permashortlink:
         citation_tokens.append(Token('text', ' (', True))
         citation_tokens.append(Token('link', permashortlink, True))
-        citation_tokens.append(Token('text', ' )', True))
+        citation_tokens.append(Token('text', ')', True))
     elif permashortcitation:
         citation_tokens.append(
             Token('text', u' ({})'.format(permashortcitation), True))

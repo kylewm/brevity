@@ -3,12 +3,12 @@ from setuptools import setup
 
 
 setup(name='brevity',
-      version='0.1.0',
+      version='0.1.1',
       description='Tweet shortening utility',
       long_description='Utility for shortening longer notes to at most 140 characters.',
       author='Kyle Mahan',
       author_email='kyle@kylewm.com',
-      url='http://indiewebcamp.com/',
+      url='http://indiewebcamp.com/brevity',
       py_modules=['brevity'],
       test_suite='tests',
       classifiers=[
