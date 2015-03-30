@@ -10,7 +10,7 @@ def readme():
 
 
 setup(name='brevity',
-      version='0.1.2',
+      version='0.1.3',
       description='Tweet shortening utility',
       long_description=readme(),
       author='Kyle Mahan',
