@@ -11,7 +11,7 @@ else:
 LINKIFY_RE = re.compile(r"""
 (?:(?:http|https|file|irc):/{1,3})?       # optional scheme
 (?:[a-z0-9\-]+\.)+[a-z]{2,4}(?::\d{2,6})? # host and optional port
-(?:(?:/[\w/.\-_~.;:%?@$#&()=+]*)|\b)      # path and query
+(?:(?:/[\w/.\-_~.;:%?!@$#&()=+]*)|\b)      # path and query
 """, re.VERBOSE | re.UNICODE)
 
 

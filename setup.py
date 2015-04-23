@@ -4,13 +4,13 @@ import os.path
 
 
 def readme():
-    with open(os.path.join(os.path.dirname(__file__), 
+    with open(os.path.join(os.path.dirname(__file__),
                            'README.rst')) as f:
         return f.read()
 
 
 setup(name='brevity',
-      version='0.1.3',
+      version='0.1.4',
       description='Tweet shortening utility',
       long_description=readme(),
       author='Kyle Mahan',
@@ -27,5 +27,4 @@ setup(name='brevity',
           'Programming Language :: Python :: 3',
           'Topic :: Text Processing',
           'Topic :: Utilities',
-      ]
-  )
+      ])

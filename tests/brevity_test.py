@@ -65,3 +65,8 @@ class BrevityTest(unittest.TestCase):
         result = brevity.shorten(text=text, permalink=permalink,
                                  permashortlink=psl)
         self.assertEqual(expected, result)
+
+    def test_no_shorten_google_groups_url(self):
+        text = '.@davidjohnmead oh interesting, you solved the same problem I had with IndiePub in a different way https://groups.google.com/forum/#!topic/known-dev/QZviPC5w9oM cc: @withknown'
+        result = brevity.shorten(text=text)
+        self.assertEqual(text, result)
