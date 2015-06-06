@@ -1,19 +1,10 @@
 # coding=utf-8
+from __future__ import unicode_literals, print_function
 import brevity
 import unittest
 
 
 class BrevityTest(unittest.TestCase):
-
-    def test_tokenize_links(self):
-        text = 'here is a example.com/string that should be https://tokenized.org, but @kylewm.com should not be.'
-        self.assertEqual([
-            brevity.Token('text', content='here is a '),
-            brevity.Token('link', content='example.com/string'),
-            brevity.Token('text', content=' that should be '),
-            brevity.Token('link', content='https://tokenized.org'),
-            brevity.Token('text', content=', but @kylewm.com should not be.'),
-        ], brevity.tokenize(text))
 
     def test_tokenize_ignore_html(self):
         text = 'this should <a href="http://example.com">not be linkified</a>'
@@ -66,7 +57,22 @@ class BrevityTest(unittest.TestCase):
                                  permashortlink=psl)
         self.assertEqual(expected, result)
 
-    def test_no_shorten_google_groups_url(self):
-        text = '.@davidjohnmead oh interesting, you solved the same problem I had with IndiePub in a different way https://groups.google.com/forum/#!topic/known-dev/QZviPC5w9oM cc: @withknown'
-        result = brevity.shorten(text=text)
+    def test_mmddyyyy_false_positive(self):
+        text = u'anybody have a wedding ring with the date engraved in ISO 8601? I’ll be damned if I’m going to wear mm.dd.yyyy anywhere on my person.'
+
+        permalink = 'https://kylewm.com/2015/05/anybody-have-a-wedding-ring-with-the-date-engraved'
+
+        result = brevity.shorten(text=text, permalink=permalink,
+                                 permashortlink=None)
         self.assertEqual(text, result)
+
+    def test_hamburg_tld(self):
+        text = u'ix freue mich auf die nebenan.hamburg morgen. ich spreche auch ne halbe stunde übers #indieweb und @reclaim_fm.'
+
+        permalink = u'http://wirres.net/article/articleview/7773/1/6/'
+        psl = u'http://wirres.net/7773'
+
+        expected = u'ix freue mich auf die nebenan.hamburg morgen. ich spreche auch ne halbe stunde übers #indieweb und… http://wirres.net/article/articleview/7773/1/6/'
+        result = brevity.shorten(text=text, permalink=permalink,
+                                 permashortlink=psl)
+        self.assertEqual(expected, result)

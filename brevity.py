@@ -1,4 +1,5 @@
 # coding=utf-8
+from __future__ import unicode_literals, print_function
 import re
 import sys
 
@@ -7,12 +8,24 @@ if sys.version < '3':
 else:
     xrange = range
 
-
 LINKIFY_RE = re.compile(r"""
 (?:(?:http|https|file|irc):/{1,3})?       # optional scheme
-(?:[a-z0-9\-]+\.)+[a-z]{2,4}(?::\d{2,6})? # host and optional port
-(?:(?:/[\w/.\-_~.;:%?!@$#&()=+]*)|\b)      # path and query
-""", re.VERBOSE | re.UNICODE)
+(?:[a-z0-9\-]+\.)+[a-z]{2,}(?::\d{2,6})?  # host and optional port
+(?:(?:/[\w/.\-_~.;:%?!@$#&()=+]*)|\b)     # path and query
+""", re.VERBOSE | re.UNICODE | re.IGNORECASE)
+
+DOMAIN_RE = re.compile("""
+(?:(?:http|https|file|irc):/{1,3})?       # optional scheme
+((?:[a-z0-9\-]+\.)+)([a-z]{2,})           # name and tld
+""", re.VERBOSE | re.UNICODE | re.IGNORECASE)
+
+
+def read_tlds_from_file():
+    with open('tlds-alpha-by-domain.txt') as f:
+        return set(line.strip().lower() for line in f.readlines()
+                   if not line.startswith('#'))
+
+TLDS = read_tlds_from_file()
 
 
 class Token:
@@ -41,8 +54,12 @@ def tokenize(text, skip_bare_cc_tlds=False):
         [domain].[2-letter TLD] with no schema and no path
 
     :return list: a list of brevity.Tokens
-
     """
+    def has_valid_tld(link):
+        print('checking valid tld:', link)
+        m = DOMAIN_RE.match(link)
+        return m and m.group(2).lower() in TLDS
+
     links = LINKIFY_RE.findall(text)
     splits = LINKIFY_RE.split(text)
 
@@ -66,6 +83,7 @@ def tokenize(text, skip_bare_cc_tlds=False):
                 or prev_text.rstrip().endswith("='")
                 or prev_text.endswith('@') or next_text.startswith('@')
                 or next_text.lstrip().startswith('</a')
+                or not has_valid_tld(link)
                 # skip domains with 2-letter TLDs and no schema or path
                 or (skip_bare_cc_tlds
                     and re.match(r'[a-z0-9\-]+\.[a-z]{2}$', link))):

@@ -50,5 +50,14 @@ Note that to be used in a permashortcitation, the bare domain must not
 be autolinked by Twitter (Otherwise, what should be 5-6 characters will
 count for 22). This typically means it cannot be a .com, .net, or .org.
 
+Changes
+-------
+
+* [0.1.5] - 2015-06-05: match all TLDs recognized by IANA; ignore things that look like domains but aren't.
+* [0.1.4] - 2015-04-22: match URLs that include exclamation points.
+* [0.1.3] - 2015-03-29: improved description in pypi.
+* [0.1.0] - 2015-02-15: initial check-in.
+
+
 .. |Build Status| image:: https://travis-ci.org/kylewm/brevity.svg
    :target: https://travis-ci.org/kylewm/brevity
