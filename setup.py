@@ -10,14 +10,13 @@ def readme():
 
 
 setup(name='brevity',
-      version='0.1.5',
+      version='0.1.6',
       description='Tweet shortening utility',
       long_description=readme(),
       author='Kyle Mahan',
       author_email='kyle@kylewm.com',
       url='http://indiewebcamp.com/brevity',
       py_modules=['brevity'],
-      package_data={'': ['tlds-alpha-by-domain.txt']},
       test_suite='tests',
       classifiers=[
           'Development Status :: 3 - Alpha',

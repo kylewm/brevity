@@ -53,6 +53,7 @@ count for 22). This typically means it cannot be a .com, .net, or .org.
 Changes
 -------
 
+* [0.1.6] - 2015-06-05: move data text file into brevity.py for easier distribution/reuse.
 * [0.1.5] - 2015-06-05: match all TLDs recognized by IANA; ignore things that look like domains but aren't.
 * [0.1.4] - 2015-04-22: match URLs that include exclamation points.
 * [0.1.3] - 2015-03-29: improved description in pypi.
