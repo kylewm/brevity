@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 from setuptools import setup
 import os.path
+import codecs
 
 
 def readme():
-    with open(os.path.join(os.path.dirname(__file__),
-                           'README.rst')) as f:
+    with codecs.open(
+            os.path.join(os.path.dirname(__file__), 'README.rst'),
+            encoding='utf-8') as f:
         return f.read()
 
 
