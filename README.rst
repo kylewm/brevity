@@ -20,7 +20,7 @@ requirements (accounting for t.co URL shortening).
 
     >>> import brevity
     >>> brevity.shorten("This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is longer than 140 characters, it will also include an ellipsis and link to the original note.", permalink="http://example.com/2015/03/fairly-long-note")
-    'This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is http://example.com/2015/03/fairly-long-note'
+    'This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is… http://example.com/2015/03/fairly-long-note'
 
 The permalink, permashortlink, and permashortcitation parameters are all
 optional and all have slightly different behavior. Permalinks will
