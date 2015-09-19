@@ -99,6 +99,28 @@ def tokenize(text, skip_bare_cc_tlds=False):
     return result
 
 
+def autolink(text):
+    """Add link elements around URLs in an HTML or plain text document.
+    """
+    def add_scheme(url):
+        if (url.startswith('//') or url.startswith('http://')
+                or url.startswith('https://') or url.startswith('mailto://')
+                or url.startswith('irc://')):
+            return url
+        if url.startswith('Http'):
+            return 'h' + url[1:]
+        return 'http://' + url
+
+    result = []
+    for token in tokenize(text):
+        if token.tag == 'link':
+            result.append('<a href="{}">{}</>'.format(
+                add_scheme(token.content), token.content))
+        else:
+            result.append(token.content)
+    return ''.join(result)
+
+
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=140, http_link_length=22, https_link_length=23):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
