@@ -6,9 +6,6 @@ setup(name='brevity',
       version='0.2.0',
       description='Tweet shortening utility',
       long_description="""
-Brevity
-=======
-
 *Brevity is the soul of tweet*
 
 A small utility to shorten https://indiewebcamp.com/note posts to an

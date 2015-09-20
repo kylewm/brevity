@@ -3,5 +3,6 @@ python:
   - "2.6"
   - "2.7"
   - "3.3"
+  - "3.4"
 # command to run tests
 script: "python -m unittest tests.brevity_test"
