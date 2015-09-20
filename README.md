@@ -69,18 +69,18 @@ well-formed &lt;a> tags.
 'this links to <a class="auto-link" href="http://nebenan.hamburg">nebenan.hamburg</a>'
 ```
 
-Like the CASSIS's method it is based on, autolink is idempotent --
+Like the CASSIS method it is based on, autolink is idempotent --
 applying it to its own output will not change the result. In practice,
 this means &lt;a> tags in existing HTML will not be affected.
 
 Changes
 -------
 
-- [0.2.0] - 2015-09-20: added autolink function
-- [0.1.6] - 2015-06-05: move data text file into brevity.py for easier
+- 0.2.0 - 2015-09-20: added autolink function
+- 0.1.6 - 2015-06-05: move data text file into brevity.py for easier
   distribution/reuse.
-- [0.1.5] - 2015-06-05: match all TLDs recognized by IANA; ignore
+- 0.1.5 - 2015-06-05: match all TLDs recognized by IANA; ignore
   things that look like domains but aren't.
-- [0.1.4] - 2015-04-22: match URLs that include exclamation points.
-- [0.1.3] - 2015-03-29: improved description in pypi.
-- [0.1.0] - 2015-02-15: initial check-in.
+- 0.1.4 - 2015-04-22: match URLs that include exclamation points.
+- 0.1.3 - 2015-03-29: improved description in pypi.
+- 0.1.0 - 2015-02-15: initial check-in.
