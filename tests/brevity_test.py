@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, print_function
 import brevity
 import unittest
+import collections
 
 
 class BrevityTest(unittest.TestCase):
@@ -76,3 +77,23 @@ class BrevityTest(unittest.TestCase):
         result = brevity.shorten(text=text, permalink=permalink,
                                  permashortlink=psl)
         self.assertEqual(expected, result)
+
+    def test_autolink(self):
+        TestCase = collections.namedtuple('TestCase', 'text expected')
+        tests = [
+            TestCase(
+                text='This links to a weird domain deals.blackfriday.',
+                expected='This links to a weird domain <a class="auto-link" href="http://deals.blackfriday">deals.blackfriday</a>.'),
+            TestCase(
+                text='starts.with.a.link and ends with <a href="https://kylewm.com/about#me">HTML</a>.',
+                expected='<a class="auto-link" href="http://starts.with.a.link">starts.with.a.link</a> and ends with <a href="https://kylewm.com/about#me">HTML</a>.'),
+            TestCase(
+                text='includes Http://ipad-capitalization.com',
+                expected='includes <a class="auto-link" href="http://ipad-capitalization.com">Http://ipad-capitalization.com</a>'),
+            TestCase(
+                text='a matched parenthesis: http://wikipedia.org/Python_(programming_language) and (an unmatched parenthesis https://en.wikipedia.org/wiki/Guido_van_Rossum)',
+                expected='a matched parenthesis: <a class="auto-link" href="http://wikipedia.org/Python_(programming_language)">http://wikipedia.org/Python_(programming_language)</a> and (an unmatched parenthesis <a class="auto-link" href="https://en.wikipedia.org/wiki/Guido_van_Rossum">https://en.wikipedia.org/wiki/Guido_van_Rossum</a>)'),
+        ]
+
+        for test in tests:
+            self.assertEqual(test.expected, brevity.autolink(test.text))
