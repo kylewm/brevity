@@ -1,20 +1,25 @@
 #!/usr/bin/env python
 from setuptools import setup
-import os.path
-import codecs
-
-
-def readme():
-    with codecs.open(
-            os.path.join(os.path.dirname(__file__), 'README.rst'),
-            encoding='utf-8') as f:
-        return f.read()
 
 
 setup(name='brevity',
-      version='0.1.6',
+      version='0.2.0',
       description='Tweet shortening utility',
-      long_description=readme(),
+      long_description="""
+Brevity
+=======
+
+*Brevity is the soul of tweet*
+
+A small utility to shorten https://indiewebcamp.com/note posts to an
+acceptable tweet-length summary. Appends an optional permalink or
+citation.
+
+Also supports autolinking web addresses in text.
+
+Brevity checks URLs against the full list of ICANN TLDs, to avoid
+linking things that look like web addresses but aren't.
+""",
       author='Kyle Mahan',
       author_email='kyle@kylewm.com',
       url='http://indiewebcamp.com/brevity',
