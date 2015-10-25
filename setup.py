@@ -3,11 +3,9 @@ from setuptools import setup
 
 
 setup(name='brevity',
-      version='0.2.0',
-      description='Tweet shortening utility',
+      version='0.2.1',
+      description='Tweet shortening and autolinking utility',
       long_description="""
-*Brevity is the soul of tweet*
-
 A small utility to shorten https://indiewebcamp.com/note posts to an
 acceptable tweet-length summary. Appends an optional permalink or
 citation.
@@ -16,6 +14,8 @@ Also supports autolinking web addresses in text.
 
 Brevity checks URLs against the full list of ICANN TLDs, to avoid
 linking things that look like web addresses but aren't.
+
+Documentation and source on GitHub: https://github.com/kylewm/brevity
 """,
       author='Kyle Mahan',
       author_email='kyle@kylewm.com',
@@ -23,7 +23,7 @@ linking things that look like web addresses but aren't.
       py_modules=['brevity'],
       test_suite='tests',
       classifiers=[
-          'Development Status :: 3 - Alpha',
+          'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: BSD License',
           'Natural Language :: English',

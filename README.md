@@ -76,6 +76,8 @@ this means &lt;a> tags in existing HTML will not be affected.
 Changes
 -------
 
+- 0.2.1 - 2015-10-25: all links default to 23 characters now that
+  [Twitter serves all t.co links over https][t.co-https]
 - 0.2.0 - 2015-09-20: added autolink function
 - 0.1.6 - 2015-06-05: move data text file into brevity.py for easier
   distribution/reuse.
@@ -84,3 +86,6 @@ Changes
 - 0.1.4 - 2015-04-22: match URLs that include exclamation points.
 - 0.1.3 - 2015-03-29: improved description in pypi.
 - 0.1.0 - 2015-02-15: initial check-in.
+
+
+[t.co-https]: https://twittercommunity.com/t/moving-t-co-to-https-only-for-new-links/52380

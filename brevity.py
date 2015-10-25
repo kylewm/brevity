@@ -125,7 +125,7 @@ def autolink(text):
 
 
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
-            target_length=140, http_link_length=22, https_link_length=23):
+            target_length=140, link_length=23):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -151,9 +151,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
       'ttk.me t4_f2', an alternative to permashortlink. If provided will be
       added in parentheses to the end of all notes. (optional)
     :param int target_length: The target overall length (default = 140)
-    :param int http_link_length: The t.co length for an http URL (default = 22)
-    :param int https_link_length: The t.co shortened length for an https URL
-      (default = 23)
+    :param int link_length: The t.co length for a URL (default = 23)
 
     :return string: the final composed text
     """
@@ -169,9 +167,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
 
     def token_length(token):
         if token.tag == 'link':
-            if token.content.startswith('https'):
-                return https_link_length
-            return http_link_length
+            return link_length
         return len(token.content)
 
     def total_length(tokens):
