@@ -78,6 +78,17 @@ class BrevityTest(unittest.TestCase):
                                  permashortlink=psl)
         self.assertEqual(expected, result)
 
+    def test_shorten_format_as_title(self):
+        text = 'The Article Title'
+        permalink = 'http://example.com/article'
+        self.assertEqual('The Article Title: http://example.com/article', 
+                         brevity.shorten(text=text, permalink=permalink, format_as_title=True))
+
+        text = 'The Article Title is Longer Than Will Fit in Just One Single Tweet, and I Find This Situation to be Awfully Frustrating; How About You?'
+        permalink = 'https://example.org/article'
+        self.assertEqual('The Article Title is Longer Than Will Fit in Just One Single Tweet, and I Find This Situation to be Awfully… https://example.org/article',
+                         brevity.shorten(text=text, permalink=permalink, format_as_title=True))
+        
     def test_autolink(self):
         TestCase = collections.namedtuple('TestCase', 'text expected')
         tests = [
@@ -97,3 +108,4 @@ class BrevityTest(unittest.TestCase):
 
         for test in tests:
             self.assertEqual(test.expected, brevity.autolink(test.text))
+

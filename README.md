@@ -56,6 +56,12 @@ Note that to be used in a permashortcitation, the bare domain must not
 be autolinked by Twitter (Otherwise, what should be 5-6 characters will
 count for 22). This typically means it cannot be a .com, .net, or .org.
 
+Setting the optional parameter `format_as_title` to true implies that
+text is the title of a longer article (that can be found at
+`permalink`). The composed text will be `Article Title: permalink` and
+the permalink will be included regardless of the length of the title.
+The values of `permashortlink` and `permashortcitation` are ignored.
+
 ### Autolink
 
 The method `brevity.autolink`, based heavily on
@@ -76,6 +82,8 @@ this means &lt;a> tags in existing HTML will not be affected.
 Changes
 -------
 
+- 0.2.2 - 2015-11-19: add `format_as_title` parameter to shorten
+  to support formatting article titles instead of note posts
 - 0.2.1 - 2015-10-25: all links default to 23 characters now that
   [Twitter serves all t.co links over https][t.co-https]
 - 0.2.0 - 2015-09-20: added autolink function

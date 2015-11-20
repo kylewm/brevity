@@ -125,7 +125,7 @@ def autolink(text):
 
 
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
-            target_length=140, link_length=23):
+            target_length=140, link_length=23, format_as_title=False):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -133,6 +133,10 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     '(permashortcitation)' can fit into the target length (defaults to
     140 characters), it will return the composed text.
 
+    If format_as_title is true, text is taken to be the title of a longer 
+    article. It will be formatted as '[text]: [permalink]'. The values of 
+    permashortlink and permashortcitation are ignored in this case.
+    
     Otherwise, the text will be shortened to the nearest full word,
     with an ellipsis and permalink added at the end. A permalink
     should always be provided; otherwise text will be shortened with
@@ -152,7 +156,9 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
       added in parentheses to the end of all notes. (optional)
     :param int target_length: The target overall length (default = 140)
     :param int link_length: The t.co length for a URL (default = 23)
-
+    :param boolean format_as_title: If true, format the citation like the 
+      title of a longer article (default = False)
+    
     :return string: the final composed text
     """
     def truncate_to_nearest_word(text, length):
@@ -176,7 +182,10 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     tokens = tokenize(text, skip_bare_cc_tlds=True)
 
     citation_tokens = []
-    if permashortlink:
+    if format_as_title and permalink:
+        citation_tokens.append(Token('text', ': ', True))
+        citation_tokens.append(Token('text', permalink, True))
+    elif permashortlink:
         citation_tokens.append(Token('text', ' (', True))
         citation_tokens.append(Token('link', permashortlink, True))
         citation_tokens.append(Token('text', ')', True))
