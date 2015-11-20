@@ -133,10 +133,10 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     '(permashortcitation)' can fit into the target length (defaults to
     140 characters), it will return the composed text.
 
-    If format_as_title is true, text is taken to be the title of a longer 
-    article. It will be formatted as '[text]: [permalink]'. The values of 
+    If format_as_title is true, text is taken to be the title of a longer
+    article. It will be formatted as '[text]: [permalink]'. The values of
     permashortlink and permashortcitation are ignored in this case.
-    
+
     Otherwise, the text will be shortened to the nearest full word,
     with an ellipsis and permalink added at the end. A permalink
     should always be provided; otherwise text will be shortened with
@@ -156,20 +156,21 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
       added in parentheses to the end of all notes. (optional)
     :param int target_length: The target overall length (default = 140)
     :param int link_length: The t.co length for a URL (default = 23)
-    :param boolean format_as_title: If true, format the citation like the 
+    :param boolean format_as_title: If true, format the citation like the
       title of a longer article (default = False)
-    
+
     :return string: the final composed text
     """
     def truncate_to_nearest_word(text, length):
-      # try stripping trailing whitespace first
-      text = text.rstrip()
-      if len(text) <= length:
-        return text
-      # walk backwards until we find a delimiter
-      for j in xrange(length, -1, -1):
-        if text[j] in ',.;: \t\r\n':
-          return text[:j]
+        delimiters = ',.;: \t\r\n'
+        # try stripping trailing whitespace first
+        text = text.rstrip()
+        if len(text) <= length:
+            return text
+        # walk backwards until we find a delimiter
+        for j in xrange(length, -1, -1):
+            if text[j] in delimiters:
+                return text[:j].rstrip(delimiters)
 
     def token_length(token):
         if token.tag == 'link':

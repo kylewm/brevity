@@ -82,6 +82,8 @@ this means &lt;a> tags in existing HTML will not be affected.
 Changes
 -------
 
+- 0.2.3 - 2015-11-19: when truncating to the nearest word, strip
+  trailing delimiters, so there's no punctuation before the ellipsis
 - 0.2.2 - 2015-11-19: add `format_as_title` parameter to shorten
   to support formatting article titles instead of note posts
 - 0.2.1 - 2015-10-25: all links default to 23 characters now that
