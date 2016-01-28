@@ -5,7 +5,7 @@ Brevity
 
 *Brevity is the soul of tweet*
 
-A small utility to shorten <https://indiewebcamp.com/note> posts to an
+A small utility to shorten [posts](https://indiewebcamp.com/note)  to an
 acceptable tweet-length summary. Appends an optional permalink or
 citation. Also supports autolinking.
 
@@ -78,6 +78,14 @@ well-formed &lt;a> tags.
 Like the CASSIS method it is based on, autolink is idempotent --
 applying it to its own output will not change the result. In practice,
 this means &lt;a> tags in existing HTML will not be affected.
+
+License
+-------
+
+This software is dedicated to the public domain under Creative Commons [CC0][].
+
+[CC0]: http://creativecommons.org/publicdomain/zero/1.0/
+
 
 Changes
 -------
