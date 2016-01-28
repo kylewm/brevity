@@ -5,4 +5,5 @@ python:
   - "3.3"
   - "3.4"
 # command to run tests
-script: "python -m unittest tests.brevity_test"
+script: "python setup.py test"
+sudo: false
