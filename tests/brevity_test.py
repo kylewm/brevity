@@ -33,13 +33,12 @@ class BrevityTest(unittest.TestCase):
 
     def test_shorten(self):
         for testcase in TESTS['shorten']:
-            params = {
-                k: testcase[k] for k in (
+            params = dict([
+                (k, testcase[k]) for k in (
                     'text', 'permalink', 'permashortlink', 'permashortcitation',
                     'target_length', 'link_length', 'format_as_title',
                 )
-                if k in testcase
-            }
+                if k in testcase])
             result = brevity.shorten(**params)
             expected = testcase['expected']
             self.assertEqual(expected, result)
