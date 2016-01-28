@@ -119,7 +119,7 @@ def autolink(text):
     result = []
     for token in tokenize(text):
         if token.tag == 'link':
-            result.append('<a class="auto-link" href="{}">{}</a>'.format(
+            result.append('<a class="auto-link" href="{0}">{1}</a>'.format(
                 add_scheme(token.content), token.content))
         else:
             result.append(token.content)
@@ -194,7 +194,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         citation_tokens.append(Token('text', ')', True))
     elif permashortcitation:
         citation_tokens.append(
-            Token('text', u' ({})'.format(permashortcitation), True))
+            Token('text', u' ({0})'.format(permashortcitation), True))
 
     base_length = total_length(tokens)
     citation_length = total_length(citation_tokens)
