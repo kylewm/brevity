@@ -1,5 +1,4 @@
-Brevity
-=======
+# Brevity
 
 [![Build Status](https://travis-ci.org/kylewm/brevity.svg)](https://travis-ci.org/kylewm/brevity)
 
@@ -13,8 +12,7 @@ Brevity checks URLs against the full list of ICANN TLDs, to avoid
 linking things that look like web addresses but aren't.
 
 
-Usage
------
+## Usage
 
 ### Shorten
 
@@ -79,17 +77,17 @@ Like the CASSIS method it is based on, autolink is idempotent --
 applying it to its own output will not change the result. In practice,
 this means &lt;a> tags in existing HTML will not be affected.
 
-License
--------
+## Acknowledgments
 
-This software is dedicated to the public domain under Creative Commons [CC0][].
+Brevity's URL-recognition is based very heavily on
+[Tantek Çelik's](http://tantek.com) excellent
+[CASSIS](http://cassisjs.org).
 
-[CC0]: http://creativecommons.org/publicdomain/zero/1.0/
+## Changes
 
-
-Changes
--------
-
+- 0.2.4 - 2016-01-28: Changed license from BSD to CC0. Extract test
+  cases into reusable tests.json file. Fix bug where permalink
+  citations were counted as text rather than links.
 - 0.2.3 - 2015-11-19: when truncating to the nearest word, strip
   trailing delimiters, so there's no punctuation before the ellipsis
 - 0.2.2 - 2015-11-19: add `format_as_title` parameter to shorten

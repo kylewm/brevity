@@ -3,7 +3,7 @@ from setuptools import setup
 
 
 setup(name='brevity',
-      version='0.2.3',
+      version='0.2.4',
       description='Tweet shortening and autolinking utility',
       long_description="""
 A small utility to shorten https://indiewebcamp.com/note posts to an
@@ -25,7 +25,7 @@ Documentation and source on GitHub: https://github.com/kylewm/brevity
       classifiers=[
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
-          'License :: OSI Approved :: BSD License',
+          'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
           'Natural Language :: English',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
