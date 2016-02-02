@@ -4,13 +4,17 @@
 
 *Brevity is the soul of tweet*
 
-A small utility to shorten [posts](https://indiewebcamp.com/note)  to an
-acceptable tweet-length summary. Appends an optional permalink or
-citation. Also supports autolinking.
+A small utility to shorten [posts](https://indiewebcamp.com/note) to a
+tweet-length summary. Appends an optional permalink or citation. Also
+supports autolinking.
 
 Brevity checks URLs against the full list of ICANN TLDs, to avoid
 linking things that look like web addresses but aren't.
 
+## Ports
+
+- PHP: https://github.com/kylewm/brevity-php
+- Javascript: https://github.com/kylewm/brevity-js
 
 ## Usage
 
@@ -85,6 +89,10 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.6 - 2016-02-01: Change shorten() parameter format_as_title to
+  format, and allow different format styles, including note with media
+  (to account for extra characters used by Twitter for an attachment)
+- 0.2.5 - 2016-01-28: Added ports to to php and js
 - 0.2.4 - 2016-01-28: Changed license from BSD to CC0. Extract test
   cases into reusable tests.json file. Fix bug where permalink
   citations were counted as text rather than links.

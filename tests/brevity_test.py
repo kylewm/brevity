@@ -8,7 +8,7 @@ import unittest
 
 import brevity
 
-with open('tests.json') as f:
+with open('testcases/tests.json') as f:
     TESTS = json.load(f)
 
 class BrevityTest(unittest.TestCase):
@@ -36,7 +36,7 @@ class BrevityTest(unittest.TestCase):
             params = dict([
                 (k, testcase[k]) for k in (
                     'text', 'permalink', 'permashortlink', 'permashortcitation',
-                    'target_length', 'link_length', 'format_as_title',
+                    'target_length', 'link_length', 'format',
                 )
                 if k in testcase])
             result = brevity.shorten(**params)
