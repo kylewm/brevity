@@ -83,7 +83,7 @@ def tokenize(text, skip_bare_cc_tlds=False):
                 or not has_valid_tld(link)
                 # skip domains with 2-letter TLDs and no schema or path
                 or (skip_bare_cc_tlds
-                    and re.match(r'[a-z0-9\-]+\.[a-z]{2}$', link))):
+                    and re.match(r'[a-z0-9\-]+\.[a-z]{2}$', link, flags=re.IGNORECASE))):
             # collapse link into before text
             splits[ii] = splits[ii] + links[ii]
             links[ii] = None
