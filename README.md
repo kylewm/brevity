@@ -89,6 +89,9 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.7 - 2016-02-14: Bugfix: make sure check for ccTLDs is
+  case-insensitive, so that we know Twitter won't autolink e.g.,
+  Gogs.io
 - 0.2.6 - 2016-02-01: Change shorten() parameter format_as_title to
   format, and allow different format styles, including note with media
   (to account for extra characters used by Twitter for an attachment)
