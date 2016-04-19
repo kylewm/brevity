@@ -23,7 +23,9 @@ TLDS = ["aaa", "aarp", "abb", "abbott", "abogado", "ac", "academy", "accenture",
 
 FORMAT_NOTE = 'note'
 FORMAT_ARTICLE = 'article'
-FORMAT_NOTE_WITH_MEDIA = 'note+media'
+FORMAT_MEDIA = 'media'
+FORMAT_NOTE_WITH_MEDIA = FORMAT_NOTE + '+' + FORMAT_MEDIA
+FORMAT_ARTICLE_WITH_MEDIA = FORMAT_ARTICLE + '+' + FORMAT_MEDIA
 
 
 class Token:
@@ -189,7 +191,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     tokens = tokenize(text, skip_bare_cc_tlds=True)
 
     citation_tokens = []
-    if format == FORMAT_ARTICLE and permalink:
+    if FORMAT_ARTICLE in format and permalink:
         citation_tokens.append(Token('text', ': ', True))
         citation_tokens.append(Token('link', permalink, True))
     elif permashortlink:
@@ -200,7 +202,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         citation_tokens.append(
             Token('text', u' ({0})'.format(permashortcitation), True))
 
-    if format == FORMAT_NOTE_WITH_MEDIA:
+    if FORMAT_MEDIA in format:
         target_length -= link_length + 1  # 23 chars + a space
 
     base_length = total_length(tokens)

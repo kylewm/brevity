@@ -89,6 +89,8 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.8 - 2016-04-19: Add support for article+media where text
+  represents the title of an article and includes an image.
 - 0.2.7 - 2016-02-14: Bugfix: make sure check for ccTLDs is
   case-insensitive, so that we know Twitter won't autolink e.g.,
   Gogs.io
