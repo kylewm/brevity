@@ -72,8 +72,7 @@ def tokenize(text, skip_bare_cc_tlds=False):
             jj -= 1
             links[ii] = link[:jj + 1]
             splits[ii + 1] = link[jj + 1:] + splits[ii + 1]
-
-        link = links[ii]
+            link = links[ii]
 
         # avoid double linking by looking at preceeding 2 chars
         prev_text = splits[ii]
