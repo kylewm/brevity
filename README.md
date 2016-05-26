@@ -89,6 +89,9 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.9 - 2016-05-26: Bugfix: when trimming trailing characters
+  from a URL, fixes an issue where characters after the first
+  would be included several times.
 - 0.2.8 - 2016-04-19: Add support for article+media where text
   represents the title of an article and includes an image.
 - 0.2.7 - 2016-02-14: Bugfix: make sure check for ccTLDs is
