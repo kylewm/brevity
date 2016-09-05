@@ -89,6 +89,9 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.10 - 2016-09-05: Rearrange link regex so that TLDs
+  are validated by the regex instead of after the fact. Makes
+  the shortener behave more like Twitter's.
 - 0.2.9 - 2016-05-26: Bugfix: when trimming trailing characters
   from a URL, fixes an issue where characters after the first
   would be included several times.
