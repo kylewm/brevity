@@ -89,6 +89,8 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.11 - 2016-09-25: Remove special formatting for media attachments
+  since Twitter no longer counts them against us!
 - 0.2.10 - 2016-09-05: Rearrange link regex so that TLDs
   are validated by the regex instead of after the fact. Makes
   the shortener behave more like Twitter's.

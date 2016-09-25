@@ -3,7 +3,7 @@ from setuptools import setup
 
 
 setup(name='brevity',
-      version='0.2.10',
+      version='0.2.11',
       description='Tweet shortening and autolinking utility',
       long_description="""
 A small utility to shorten https://indiewebcamp.com/note posts to an
