@@ -58,7 +58,7 @@ Note that to be used in a permashortcitation, the bare domain must not
 be autolinked by Twitter (Otherwise, what should be 5-6 characters will
 count for 22). This typically means it cannot be a .com, .net, or .org.
 
-Setting the optional parameter `format_as_title` to true implies that
+Setting the optional parameter `format='article'` implies that
 text is the title of a longer article (that can be found at
 `permalink`). The composed text will be `Article Title: permalink` and
 the permalink will be included regardless of the length of the title.
