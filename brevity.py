@@ -15,14 +15,11 @@ _HOST = r'(?:[a-z0-9\-]+\.)+(?:' + '|'.join(TLDS) + r')(?::\d{2,6})?'
 _PATH = r'/[\w/.\-_~.;:%?!@$#&()=+]*'
 
 LINKIFY_RE = re.compile(r'(?:{scheme})?{host}(?:{path}|\b)'
-                        .format(scheme=_SCHEME, host=_HOST, path=_PATH), 
+                        .format(scheme=_SCHEME, host=_HOST, path=_PATH),
                         re.VERBOSE | re.UNICODE | re.IGNORECASE)
 
 FORMAT_NOTE = 'note'
 FORMAT_ARTICLE = 'article'
-FORMAT_MEDIA = 'media'
-FORMAT_NOTE_WITH_MEDIA = FORMAT_NOTE + '+' + FORMAT_MEDIA
-FORMAT_ARTICLE_WITH_MEDIA = FORMAT_ARTICLE + '+' + FORMAT_MEDIA
 
 
 class Token:
@@ -193,8 +190,8 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         citation_tokens.append(
             Token('text', u' ({0})'.format(permashortcitation), True))
 
-    if FORMAT_MEDIA in format:
-        target_length -= link_length + 1  # 23 chars + a space
+    if 'media' in format:
+        print('Brevity: "media" formatting has been removed; Media attachments no longer count against Twitter\'s character limit (https://dev.twitter.com/overview/api/upcoming-changes-to-tweets)', file=sys.stderr)
 
     base_length = total_length(tokens)
     citation_length = total_length(citation_tokens)
