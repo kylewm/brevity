@@ -4,9 +4,9 @@ import json
 
 r = requests.get('http://data.iana.org/TLD/tlds-alpha-by-domain.txt')
 lines = r.text.splitlines()
-tlds = [line.lower() for line in lines if not line.startswith('#')]
+tlds = ["'" + line.lower() + "'" for line in lines if not line.startswith('#')]
 
-print("'" + ' '.join(tlds) + "'")
+print('[' + ', '.join(tlds) + ']')
 
 # make a prefix tree
 
