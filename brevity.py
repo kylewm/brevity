@@ -170,6 +170,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         for j in xrange(length, -1, -1):
             if text[j] in delimiters:
                 return text[:j].rstrip(delimiters)
+        return text[:length]
 
     def token_length(token):
         if token.tag == 'link':
