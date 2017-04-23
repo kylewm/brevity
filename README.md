@@ -89,6 +89,7 @@ Brevity's URL-recognition is based very heavily on
 
 ## Changes
 
+- 0.2.13 - 2017-04-23: Account for leading special characters like /, @, and $
 - 0.2.12 - 2017-01-03: Update list of TLDs
 - 0.2.11 - 2016-09-25: Remove special formatting for media attachments
   since Twitter no longer counts them against us!
