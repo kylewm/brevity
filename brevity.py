@@ -199,7 +199,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         return weight / WEIGHTS['scale']
 
     def str_length(val):
-        return sum(char_length(char) for char in val)
+        return int(sum(char_length(char) for char in val))
 
     def token_length(token):
         if token.tag == 'link':
