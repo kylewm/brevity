@@ -21,6 +21,22 @@ LINKIFY_RE = re.compile(r'(?:{scheme})?{host}(?:{path}|\b)'
 FORMAT_NOTE = 'note'
 FORMAT_ARTICLE = 'article'
 
+# From https://developer.twitter.com/en/docs/developer-utilities/twitter-text
+# on 2017-11-18.
+WEIGHTS = {
+    'version': 2,
+    'maxWeightedTweetLength': 280,
+    'scale': 100,
+    'defaultWeight': 200,
+    'transformedURLLength': 23,
+    'ranges': [
+        {'start': 0, 'end': 4351, 'weight': 100},
+        {'start': 8192, 'end': 8205, 'weight': 100},
+        {'start': 8208, 'end': 8223, 'weight': 100},
+        {'start': 8242, 'end': 8247, 'weight': 100},
+    ],
+}
+
 
 class Token:
     def __init__(self, tag, content, required=False):
@@ -124,13 +140,15 @@ def autolink(text):
 
 
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
-            target_length=140, link_length=23, format=FORMAT_NOTE):
+            target_length=WEIGHTS['maxWeightedTweetLength'],
+            link_length=WEIGHTS['transformedURLLength'],
+            format=FORMAT_NOTE):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
     If the full text plus optional '(permashortlink)' or
     '(permashortcitation)' can fit into the target length (defaults to
-    140 characters), it will return the composed text.
+    280 characters), it will return the composed text.
 
     If format is FORMAT_ARTICLE, text is taken to be the title of a longer
     article. It will be formatted as '[text]: [permalink]'. The values of
@@ -153,7 +171,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     :param string permashortcitation: Citation to the original note, e.g.
       'ttk.me t4_f2', an alternative to permashortlink. If provided will be
       added in parentheses to the end of all notes. (optional)
-    :param int target_length: The target overall length (default = 140)
+    :param int target_length: The target overall length (default = 280)
     :param int link_length: The t.co length for a URL (default = 23)
     :param string format: one of the FORMAT_ constants that determines
       whether to format the text like a note or an article (default = FORMAT_NOTE)
@@ -164,7 +182,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         delimiters = ',.;: \t\r\n'
         # try stripping trailing whitespace first
         text = text.rstrip()
-        if len(text) <= length:
+        if str_length(text) <= length:
             return text
         # walk backwards until we find a delimiter
         for j in xrange(length, -1, -1):
@@ -172,10 +190,21 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
                 return text[:j].rstrip(delimiters)
         return text[:length]
 
+    def char_length(char):
+        point = ord(char)
+        weight = WEIGHTS['defaultWeight']
+        for range in WEIGHTS['ranges']:
+            if point >= range['start'] and point <= range['end']:
+                weight = range['weight']
+        return weight / WEIGHTS['scale']
+
+    def str_length(val):
+        return sum(char_length(char) for char in val)
+
     def token_length(token):
         if token.tag == 'link':
             return link_length
-        return len(token.content)
+        return str_length(token.content)
 
     def total_length(tokens):
         return sum(token_length(t) for t in tokens)
