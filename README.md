@@ -26,8 +26,8 @@ requirements (accounting for t.co URL shortening).
 
 ```python
 >>> import brevity
->>> brevity.shorten("This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is longer than 140 characters, it will also include an ellipsis and link to the original note.", permalink="http://example.com/2015/03/fairly-long-note")
-'This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is… http://example.com/2015/03/fairly-long-note'
+>>> brevity.shorten("This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is longer than 280 characters, it will also include an ellipsis and link to the original note. 123567890 123567890 123567890 123567890 123567890 123567890 123567890 123567890", permalink="http://example.com/2015/03/fairly-long-note")
+'This is the text of a fairly long tweet that will need to be shortened before we can post it to twitter. Since it is longer than 280 characters, it will also include an ellipsis and link to the original note. 123567890 123567890 123567890 123567890… http://example.com/2015/03/fairly-long-note'
 ```
 
 The permalink, permashortlink, and permashortcitation parameters are all
@@ -88,6 +88,8 @@ Brevity's URL-recognition is based very heavily on
 [CASSIS](http://cassisjs.org).
 
 ## Changes
+- 0.2.15 - unreleased: Implement Twitter's new
+  [weighted character counting][tw-text] [introduced on 2017-11-07][280].
 - 0.2.14 - 2017-04-23: Fix crash when given very long tokens
 - 0.2.13 - 2017-04-23: Account for leading special characters like /, @, and $
 - 0.2.12 - 2017-01-03: Update list of TLDs
@@ -128,3 +130,5 @@ Brevity's URL-recognition is based very heavily on
 
 
 [t.co-https]: https://twittercommunity.com/t/moving-t-co-to-https-only-for-new-links/52380
+[tw-text]: https://developer.twitter.com/en/docs/developer-utilities/twitter-text
+[280]: https://twittercommunity.com/t/updating-the-character-limit-and-the-twitter-text-library/96425
