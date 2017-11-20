@@ -88,6 +88,8 @@ Brevity's URL-recognition is based very heavily on
 [CASSIS](http://cassisjs.org).
 
 ## Changes
+- 0.3.0 - 2017-11-20: Support new character counting quirks with 280 characters,
+  thanks to @snarfed!
 - 0.2.14 - 2017-04-23: Fix crash when given very long tokens
 - 0.2.13 - 2017-04-23: Account for leading special characters like /, @, and $
 - 0.2.12 - 2017-01-03: Update list of TLDs

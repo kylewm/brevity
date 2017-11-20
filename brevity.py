@@ -196,7 +196,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         for range in WEIGHTS['ranges']:
             if point >= range['start'] and point <= range['end']:
                 weight = range['weight']
-        return weight / WEIGHTS['scale']
+        return weight // WEIGHTS['scale']
 
     def str_length(val):
         return sum(char_length(char) for char in val)
