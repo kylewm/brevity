@@ -88,7 +88,8 @@ Brevity's URL-recognition is based very heavily on
 [CASSIS](http://cassisjs.org).
 
 ## Changes
-- 0.2.15 - unreleased: Implement Twitter's new
+- 0.2.16 - Fix character-counting bug that caused index out of range error.
+- 0.2.15 - Implement Twitter's new
   [weighted character counting][tw-text] [introduced on 2017-11-07][280].
 - 0.2.14 - 2017-04-23: Fix crash when given very long tokens
 - 0.2.13 - 2017-04-23: Account for leading special characters like /, @, and $
