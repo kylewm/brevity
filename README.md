@@ -88,6 +88,9 @@ Brevity's URL-recognition is based very heavily on
 [CASSIS](http://cassisjs.org).
 
 ## Changes
+- 0.2.17 - 2018-03-15: Twitter's API no longer has a special carve-out for
+  ccTLDs; they count as 23 characters like every other URL. Simplified the
+  logic and updated the tests to match
 - 0.2.16 - Fix character-counting bug that caused index out of range error.
 - 0.2.15 - Implement Twitter's new
   [weighted character counting][tw-text] [introduced on 2017-11-07][280].
