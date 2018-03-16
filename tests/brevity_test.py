@@ -23,14 +23,6 @@ class BrevityTest(unittest.TestCase):
         self.assertEqual([brevity.Token(tag='text', content=text)],
                          brevity.tokenize(text))
 
-    def test_tokenize_ignore_cc_tlds(self):
-        text = 'Despite names,\nind.ie&indie.vc are NOT #indieweb @indiewebcamp\nindiewebcamp.com/2014-review#Indie_Term_Re-use\n@iainspad @sashtown @thomatronic'
-        self.assertEqual([
-            brevity.Token(tag='text', content='Despite names,\nind.ie&indie.vc are NOT #indieweb @indiewebcamp\n'),
-            brevity.Token(tag='link', content='indiewebcamp.com/2014-review#Indie_Term_Re-use'),
-            brevity.Token(tag='text', content='\n@iainspad @sashtown @thomatronic')
-        ], brevity.tokenize(text, skip_bare_cc_tlds=True))
-
     def test_shorten(self):
         for testcase in TESTS['shorten']:
             params = dict([

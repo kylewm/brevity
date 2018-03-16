@@ -21,6 +21,8 @@ LINKIFY_RE = re.compile(r'(?:{scheme})?{host}(?:{path}|\b)'
 FORMAT_NOTE = 'note'
 FORMAT_ARTICLE = 'article'
 
+DELIMITERS = ',.;: \t\r\n'
+
 # From https://developer.twitter.com/en/docs/developer-utilities/twitter-text
 # on 2017-11-18.
 WEIGHTS = {
@@ -54,14 +56,12 @@ class Token:
             self.tag, self.content, self.required)
 
 
-def tokenize(text, skip_bare_cc_tlds=False):
+def tokenize(text):
     """Split text into link and non-link text, a list of brevity.Tokens,
     tagged with 'text' or 'link' depending on how they should be
     interpreted.
 
     :param string text: text to tokenize
-    :param boolean skip_bare_cc_tlds: whether to skip links of the form
-        [domain].[2-letter TLD] with no schema and no path
 
     :return list: a list of brevity.Tokens
     """
@@ -89,10 +89,7 @@ def tokenize(text, skip_bare_cc_tlds=False):
                 or prev_text.endswith('$') or prev_text.endswith('/')
                 or prev_text.endswith('.') or prev_text.endswith('#')
                 or prev_text.endswith('_') or prev_text.endswith('-')
-                or next_text.lstrip().startswith('</a')
-                # skip domains with 2-letter TLDs and no schema or path
-                or (skip_bare_cc_tlds
-                    and re.match(r'[a-z0-9\-]+\.[a-z]{2}$', link, flags=re.IGNORECASE))):
+                or next_text.lstrip().startswith('</a')):
             # collapse link into before text
             splits[ii] = splits[ii] + links[ii]
             links[ii] = None
@@ -179,15 +176,14 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     :return string: the final composed text
     """
     def truncate_to_nearest_word(text, length):
-        delimiters = ',.;: \t\r\n'
         # try stripping trailing whitespace first
         text = text.rstrip()
         if str_length(text) <= length:
             return text
         # walk backwards until we find a delimiter
         for j in xrange(len(text) - 1, -1, -1):
-            if text[j] in delimiters:
-                trunc = text[:j].rstrip(delimiters)
+            if text[j] in DELIMITERS:
+                trunc = text[:j].rstrip(DELIMITERS)
                 if str_length(trunc) <= length:
                     return trunc
         # walk backwards ignoring delimiters
@@ -217,7 +213,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     def total_length(tokens):
         return sum(token_length(t) for t in tokens)
 
-    tokens = tokenize(text, skip_bare_cc_tlds=True)
+    tokens = tokenize(text)
 
     citation_tokens = []
     if FORMAT_ARTICLE in format and permalink:
@@ -248,6 +244,8 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         else:
             tokens.append(Token('text', u'…', True))
 
+
+
         # drop or shorten tokens, starting from the end
         for ii in xrange(len(tokens) - 1, -1, -1):
             token = tokens[ii]
@@ -256,6 +254,9 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
 
             over = total_length(tokens) - target_length
             if over <= 0:
+                # strip trailing whitespace and punctuation on the last token
+                if token.tag == 'text':
+                    token.content = token.content.rstrip(DELIMITERS)
                 break
 
             if token.tag == 'link':
