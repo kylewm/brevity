@@ -170,7 +170,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
       'ttk.me t4_f2', an alternative to permashortlink. If provided will be
       added in parentheses to the end of all notes. (optional)
     :param int target_length: The target overall length (default = 280)
-    :param int link_length: The t.co length for a URL (default = 23)
+    :param int link_length: The t.co length for a URL. If 'None', URLs won't be special cased and will count like normal characters. (default = 23)
     :param string format: one of the FORMAT_ constants that determines
       whether to format the text like a note or an article (default = FORMAT_NOTE)
     :param string ellipsis: The string to append to text when it's truncated (default = '…')
@@ -208,7 +208,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         return sum(char_length(char) for char in val)
 
     def token_length(token):
-        if token.tag == 'link':
+        if token.tag == 'link' and link_length is not None:
             return link_length
         return str_length(token.content)
 
