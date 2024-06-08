@@ -140,7 +140,7 @@ def autolink(text):
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=WEIGHTS['maxWeightedTweetLength'],
             link_length=WEIGHTS['transformedURLLength'],
-            format=FORMAT_NOTE, ellipsis=u'…'):
+            format=FORMAT_NOTE, ellipsis=u'…', punctuation=(' (', ')')):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -165,15 +165,16 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     :param string permalink: URL of the original note, will only be added if
       the text is shortened (optional).
     :param string permashortlink: Short URL of the original note, if provided
-      will be added in parentheses to the end of all notes. (optional)
+      will be added to the end of all notes. (optional)
     :param string permashortcitation: Citation to the original note, e.g.
       'ttk.me t4_f2', an alternative to permashortlink. If provided will be
-      added in parentheses to the end of all notes. (optional)
+      added to the end of all notes. (optional)
     :param int target_length: The target overall length (default = 280)
     :param int link_length: The t.co length for a URL. If 'None', URLs won't be special cased and will count like normal characters. (default = 23)
     :param string format: one of the FORMAT_ constants that determines
       whether to format the text like a note or an article (default = FORMAT_NOTE)
     :param string ellipsis: The string to append to text when it's truncated (default = '…')
+    :param tuple(string, string) punctuation: The prefix and suffix strings to enclose the permalink, permashortlink, or permashortcitation with (default = (' (', ')'))
 
     :return string: the final composed text
     """
@@ -222,12 +223,12 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         citation_tokens.append(Token('text', ': ', True))
         citation_tokens.append(Token('link', permalink, True))
     elif permashortlink:
-        citation_tokens.append(Token('text', ' (', True))
+        citation_tokens.append(Token('text', punctuation[0], True))
         citation_tokens.append(Token('link', permashortlink, True))
-        citation_tokens.append(Token('text', ')', True))
+        citation_tokens.append(Token('text', punctuation[1], True))
     elif permashortcitation:
         citation_tokens.append(
-            Token('text', u' ({0})'.format(permashortcitation), True))
+            Token('text', punctuation[0] + permashortcitation + punctuation[1], True))
 
     if 'media' in format:
         print('Brevity: "media" formatting has been removed; Media attachments no longer count against Twitter\'s character limit (https://dev.twitter.com/overview/api/upcoming-changes-to-tweets)', file=sys.stderr)
@@ -245,8 +246,6 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             tokens.append(Token('link', permalink, True))
         else:
             tokens.append(Token('text', ellipsis, True))
-
-
 
         # drop or shorten tokens, starting from the end
         for ii in xrange(len(tokens) - 1, -1, -1):
