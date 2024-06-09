@@ -25,14 +25,9 @@ class BrevityTest(unittest.TestCase):
 
     def test_shorten(self):
         for testcase in TESTS['shorten']:
-            params = dict([
-                (k, testcase[k]) for k in (
-                    'text', 'permalink', 'permashortlink', 'permashortcitation',
-                    'target_length', 'link_length', 'format',
-                )
-                if k in testcase])
-            result = brevity.shorten(**params)
-            expected = testcase['expected']
+            expected = testcase.pop('expected')
+            testcase.pop('comment', None)
+            result = brevity.shorten(**testcase)
             self.assertEqual(expected, result)
 
     def test_autolink(self):

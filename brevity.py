@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, print_function
 import re
 import sys
+import warnings
 
 if sys.version < '3':
     pass
@@ -139,7 +140,7 @@ def autolink(text):
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=WEIGHTS['maxWeightedTweetLength'],
             link_length=WEIGHTS['transformedURLLength'],
-            format=FORMAT_NOTE):
+            format=FORMAT_NOTE, ellipsis=u'…'):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -172,6 +173,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     :param int link_length: The t.co length for a URL (default = 23)
     :param string format: one of the FORMAT_ constants that determines
       whether to format the text like a note or an article (default = FORMAT_NOTE)
+    :param string ellipsis: The string to append to text when it's truncated (default = '…')
 
     :return string: the final composed text
     """
@@ -239,10 +241,10 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     else:
         # add permalink
         if permalink:
-            tokens.append(Token('text', u'… ', True))
+            tokens.append(Token('text', ellipsis + ' ', True))
             tokens.append(Token('link', permalink, True))
         else:
-            tokens.append(Token('text', u'…', True))
+            tokens.append(Token('text', ellipsis, True))
 
 
 
