@@ -140,7 +140,7 @@ def autolink(text):
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=WEIGHTS['maxWeightedTweetLength'],
             link_length=WEIGHTS['transformedURLLength'],
-            format=FORMAT_NOTE, ellipsis=u'…', punctuation=(' (', ')')):
+            format=FORMAT_NOTE, ellipsis=u'…', punctuation=(' (', ')'), weights=True):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -175,6 +175,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
       whether to format the text like a note or an article (default = FORMAT_NOTE)
     :param string ellipsis: The string to append to text when it's truncated (default = '…')
     :param tuple(string, string) punctuation: The prefix and suffix strings to enclose the permalink, permashortlink, or permashortcitation with (default = (' (', ')'))
+    :param bool weights: Whether to use Twitter's weights when counting characters. (default = True)
 
     :return string: the final composed text
     """
@@ -198,6 +199,9 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
         return ''
 
     def char_length(char):
+        if not weights:
+            return 1
+
         point = ord(char)
         weight = WEIGHTS['defaultWeight']
         for range in WEIGHTS['ranges']:
