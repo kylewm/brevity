@@ -24,6 +24,11 @@ FORMAT_ARTICLE = 'article'
 
 DELIMITERS = ',.;: \t\r\n'
 
+# Based on
+# https://en.m.wikipedia.org/wiki/Category:Writing_systems_without_word_boundaries
+# https://en.m.wikipedia.org/wiki/List_of_ISO_639_language_codes
+NON_WORD_DELIMITED_LANGS = ('ja', 'zh', 'th', 'vi', 'my', 'km', 'lo')
+
 # From https://developer.twitter.com/en/docs/developer-utilities/twitter-text
 # on 2017-11-18.
 WEIGHTS = {
@@ -140,7 +145,8 @@ def autolink(text):
 def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             target_length=WEIGHTS['maxWeightedTweetLength'],
             link_length=WEIGHTS['transformedURLLength'],
-            format=FORMAT_NOTE, ellipsis=u'…', punctuation=(' (', ')'), weights=True):
+            format=FORMAT_NOTE, ellipsis=u'…', punctuation=(' (', ')'), weights=True,
+            lang=None):
     """Prepare note text for publishing as a tweet. Ellipsize and add a
     permalink or citation.
 
@@ -176,6 +182,9 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
     :param string ellipsis: The string to append to text when it's truncated (default = '…')
     :param tuple(string, string) punctuation: The prefix and suffix strings to enclose the permalink, permashortlink, or permashortcitation with (default = (' (', ')'))
     :param bool weights: Whether to use Twitter's weights when counting characters. (default = True)
+    :param string lang: optional ISO 639-1 two-character language code for the
+      content's language. If it's in 'NON_WORD_DELIMITED_LANGS', truncation will
+      happen exactly at 'target_length', and whitespace will be ignored. (optional)
 
     :return string: the final composed text
     """
@@ -186,7 +195,7 @@ def shorten(text, permalink=None, permashortlink=None, permashortcitation=None,
             return text
         # walk backwards until we find a delimiter
         for j in xrange(len(text) - 1, -1, -1):
-            if text[j] in DELIMITERS:
+            if text[j] in DELIMITERS or lang in NON_WORD_DELIMITED_LANGS:
                 trunc = text[:j].rstrip(DELIMITERS)
                 if str_length(trunc) <= length:
                     return trunc
