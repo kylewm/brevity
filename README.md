@@ -88,8 +88,9 @@ Brevity's URL-recognition is based very heavily on
 [CASSIS](http://cassisjs.org).
 
 ## Changes
-- 0.2.18 - unreleased: shorten: add new `ellipsis` and `punctuation` kwargs,
-  support `link_length=None` to mean links count as normal characters.
+- 0.2.18 - unreleased:
+    add new `ellipsis`, `punctuation`, and `weights` kwargs
+    support `link_length=None` to mean links count as normal characters
 - 0.2.17 - 2018-03-15: Twitter's API no longer has a special carve-out for
   ccTLDs; they count as 23 characters like every other URL. Simplified the
   logic and updated the tests to match
